@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCTV Project Analysis - Bangkok Horizon</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Prompt', sans-serif; background-color: #F8FAFC; color: #0F172A; }
+.chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 320px; max-height: 400px; }
+@media (min-width: 768px) { .chart-container { height: 380px; } }
+.card { background-color: #FFFFFF; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); padding: 1.5rem; margin-bottom: 1.5rem; }
+.stat-value { font-size: 2.5rem; font-weight: 700; line-height: 1.2; }
+.vibrant-blue { color: #2563EB; }
+.vibrant-orange { color: #F97316; }
+.vibrant-teal { color: #14B8A6; }
+.vibrant-rose { color: #E11D48; }
+.bg-vibrant-blue { background-color: #2563EB; }
+</style>
+</head>
+<body class="antialiased">
+
+<nav class="bg-vibrant-blue text-white sticky top-0 z-50 shadow-md">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center">
+<span class="text-2xl mr-2">&#9673;</span>
+<span class="font-bold text-xl tracking-wide">Bangkok Horizon Security</span>
+</div>
+<div class="hidden md:block text-sm">บทวิเคราะห์เปรียบเทียบ BOQ เชิงลึก</div>
+</div>
+</div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+<section class="mb-10 text-center">
+<h1 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">โครงการยกระดับความปลอดภัยอาคาร</h1>
+<p class="text-lg text-slate-600 max-w-3xl mx-auto">บทวิเคราะห์เปรียบเทียบผู้เสนอราคาระบบกล้องวงจรปิด (CCTV) 112 จุด ชั้น 9 ถึง 36 เพื่อประกอบการพิจารณาอนุมัติงบประมาณของคณะกรรมการนิติบุคคลฯ</p>
+</section>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="card text-center border-t-4 border-[#2563EB]">
+<div class="text-slate-500 text-sm font-semibold mb-1">เป้าหมายกล้องทั้งหมด</div>
+<div class="stat-value vibrant-blue">112 <span class="text-lg font-normal text-slate-500">จุด</span></div>
+<div class="text-sm text-slate-600 mt-2">&#9654; 4 ตัว/ชั้น (ชั้น 9-36)</div>
+</div>
+<div class="card text-center border-t-4 border-[#14B8A6]">
+<div class="text-slate-500 text-sm font-semibold mb-1">พื้นที่จัดเก็บภาพย้อนหลัง</div>
+<div class="stat-value vibrant-teal">30 <span class="text-lg font-normal text-slate-500">วัน</span></div>
+<div class="text-sm text-slate-600 mt-2">&#9654; บันทึกด้วยความคมชัด 4MP</div>
+</div>
+<div class="card text-center border-t-4 border-[#F97316]">
+<div class="text-slate-500 text-sm font-semibold mb-1">ผู้ชนะการเสนอราคา (แนะนำ)</div>
+<div class="stat-value vibrant-orange text-3xl mt-2">Nextgen SmartTech</div>
+<div class="text-sm text-slate-600 mt-2">&#9654; ประหยัดงบและตอบโจทย์ที่สุด</div>
+</div>
+</div>
+
+<section class="card">
+<h2 class="text-2xl font-bold text-slate-800 mb-2">&#128176; งบประมาณและค่าใช้จ่ายรวม</h2>
+<p class="text-slate-600 mb-6">เมื่อพิจารณายอดสุทธิจากใบเสนอราคาทั้ง 3 บริษัท พบว่า Nextgen SmartTech เสนอราคาต่ำกว่าเจ้าอื่นถึงกว่า 50% ซึ่งเกิดจากการบริหารจัดการทรัพยากรที่มีอยู่อย่างชาญฉลาด ไม่ใช่การลดคุณภาพวัสดุหลัก</p>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+<div class="chart-container">
+<canvas id="totalCostChart"></canvas>
+</div>
+<div>
+<h3 class="text-lg font-bold text-slate-800 mb-3">สรุปประเด็นด้านราคา</h3>
+<ul class="space-y-3 text-slate-600">
+<li class="flex items-start">
+<span class="text-emerald-500 mr-2 text-xl">&#10004;</span>
+<span><strong>ประหยัดงบประมาณสูงสุด:</strong> Nextgen เสนอราคาที่ 606,191 บาท ในขณะที่รายอื่นเสนอสูงถึง 1.2 - 1.5 ล้านบาท</span>
+</li>
+<li class="flex items-start">
+<span class="text-emerald-500 mr-2 text-xl">&#10004;</span>
+<span><strong>ใช้โครงสร้างพื้นฐานเดิม (MA Synergy):</strong> ลดค่าใช้จ่ายเดินสาย Fiber Optic หลักโดยใช้สายเดิมที่มีอยู่</span>
+</li>
+<li class="flex items-start">
+<span class="text-emerald-500 mr-2 text-xl">&#10004;</span>
+<span><strong>แยกโปรเจกต์อุปกรณ์เสริม:</strong> นิติบุคคลฯ สามารถจัดซื้อ จอ TV และ UPS ได้เองในราคาถูกกว่าผ่านผู้รับเหมา</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+<section class="card">
+<h2 class="text-2xl font-bold text-slate-800 mb-2">&#128249; ความแม่นยำของจำนวนกล้อง</h2>
+<p class="text-slate-600 mb-4">ผู้เสนอราคาที่ 1 และ 2 เสนอกล้องไม่ครบตามขอบเขตงาน (ขาดไป 18 ตัว) และใช้กล้องทรงกระบอกซึ่งไม่เหมาะกับภายในอาคาร</p>
+<div class="chart-container h-[250px]">
+<canvas id="cameraCountChart"></canvas>
+</div>
+<div class="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-100">
+<p class="text-sm text-blue-800"><strong>จุดเด่นของ Nextgen:</strong> เสนอกล้อง 116 ตัว (ครบถ้วนและครอบคลุม) และใช้กล้องทรง Dome/Turret ทั้งหมด ซึ่งสวยงามและเข้ากับโถงทางเดินคอนโดมิเนียม</p>
+</div>
+</section>
+
+<section class="card">
+<h2 class="text-2xl font-bold text-slate-800 mb-2">&#9874; การวิเคราะห์ค่าแรงติดตั้ง</h2>
+<p class="text-slate-600 mb-4">ค่าแรงเฉลี่ยต่อจุดของ Nextgen ถูกที่สุด เนื่องจากใช้ประโยชน์จากรางเดินสายเดิมที่เคยทำไว้ ลดการรื้อฝ้าเพดานใหม่</p>
+<div class="chart-container h-[250px]">
+<canvas id="laborCostChart"></canvas>
+</div>
+<div class="mt-4 p-4 bg-orange-50 rounded-lg border border-orange-100">
+<p class="text-sm text-orange-800"><strong>ข้อตกลงสำคัญ:</strong> แม้ค่าแรงจะถูก (600 บ./จุด) แต่ Nextgen ยืนยันว่าการเดินสายจะเป็นการเปิดดาวน์ไลท์และซ่อนสายร้อยท่อใต้ฝ้า ไม่มีการเดินท่อลอยให้เสียทัศนียภาพ</p>
+</div>
+</section>
+</div>
+
+<section class="card">
+<h2 class="text-2xl font-bold text-slate-800 mb-4">&#9881; กลยุทธ์การลดต้นทุน (Value Engineering) ของ Nextgen</h2>
+<p class="text-slate-600 mb-6">เหตุผลสำคัญที่ทำให้งบประมาณของ Nextgen คุ้มค่าที่สุด เกิดจากการออกแบบระบบที่คำนึงถึงผลประโยชน์ของนิติบุคคลฯ โดยตัดสิ่งที่ซ้ำซ้อนออก และเพิ่มประสิทธิภาพการทำงานทดแทน</p>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="border border-slate-200 rounded-lg p-4 bg-slate-50 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-[#2563EB] rounded-bl-full opacity-10"></div>
+<div class="text-2xl mb-2">&#128423;</div>
+<h3 class="font-bold text-slate-800 mb-2">ตัด SD-Card เสริม RAID</h3>
+<p class="text-sm text-slate-600">ลดต้นทุนกล้องโดยเลือกรุ่นที่ไม่มีช่อง SD-Card แล้วชดเชยความเสี่ยงข้อมูลสูญหายด้วยระบบสำรองข้อมูล (RAID) บน NVR แทน</p>
+</div>
+<div class="border border-slate-200 rounded-lg p-4 bg-slate-50 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-[#14B8A6] rounded-bl-full opacity-10"></div>
+<div class="text-2xl mb-2">&#128279;</div>
+<h3 class="font-bold text-slate-800 mb-2">ต่อยอด Network เดิม</h3>
+<p class="text-sm text-slate-600">ใช้สายสัญญาณ Main Core (Fiber) เดิมที่มีอยู่ และใช้สาย CAT5E ลากเข้ากล้อง ซึ่งเพียงพอสำหรับแบนด์วิดท์กล้อง 4MP</p>
+</div>
+<div class="border border-slate-200 rounded-lg p-4 bg-slate-50 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-[#F97316] rounded-bl-full opacity-10"></div>
+<div class="text-2xl mb-2">&#128250;</div>
+<h3 class="font-bold text-slate-800 mb-2">แยกงบ TV และ UPS</h3>
+<p class="text-sm text-slate-600">ไม่นำอุปกรณ์เครื่องใช้ไฟฟ้าทั่วไปมาบวกกำไร นิติบุคคลฯ สามารถซื้อจอ TV และ UPS เองได้ในราคาตลาดที่ถูกกว่า</p>
+</div>
+<div class="border border-slate-200 rounded-lg p-4 bg-slate-50 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-[#E11D48] rounded-bl-full opacity-10"></div>
+<div class="text-2xl mb-2">&#8986;</div>
+<h3 class="font-bold text-slate-800 mb-2">ใช้ SLA บังคับคุณภาพ</h3>
+<p class="text-sm text-slate-600">เนื่องจากตัด SD-Card ออก จึงใช้เงื่อนไขสัญญา (SLA) บังคับให้ผู้รับเหมาต้องเข้าแก้ไขระบบอย่างรวดเร็วหากกล้องดับ</p>
+</div>
+</div>
+</section>
+
+<section class="card bg-slate-800 text-white">
+<h2 class="text-2xl font-bold mb-4 text-[#3B82F6]">&#10004; ข้อเสนอแนะก่อนการลงนามสัญญา</h2>
+<p class="mb-4 text-slate-300">เพื่อให้โครงการเป็นไปอย่างรัดกุม ขอเสนอให้ระบุเงื่อนไขเหล่านี้ลงในเอกสารแนบท้ายสัญญากับบริษัท Nextgen SmartTech:</p>
+<ul class="space-y-3">
+<li class="flex items-start">
+<span class="text-[#14B8A6] mr-3 font-bold text-xl">&#10003;</span>
+<span class="text-slate-200"><strong>มาตรฐานงานติดตั้ง:</strong> การติดตั้งกล้องทั้งหมดต้องร้อยสายซ่อนใต้ฝ้าเพดาน (เปิดดาวน์ไลท์) ห้ามเดินท่อลอยบริเวณโถงทางเดิน</span>
+</li>
+<li class="flex items-start">
+<span class="text-[#14B8A6] mr-3 font-bold text-xl">&#10003;</span>
+<span class="text-slate-200"><strong>ความรับผิดชอบร่วม:</strong> หากสาย Main Core เดิมมีปัญหา ทาง Nextgen ในฐานะผู้ดูแล MA ต้องแก้ไขควบคู่กับระบบกล้องใหม่โดยไม่คิดค่าใช้จ่ายเพิ่มเติม</span>
+</li>
+<li class="flex items-start">
+<span class="text-[#14B8A6] mr-3 font-bold text-xl">&#10003;</span>
+<span class="text-slate-200"><strong>การตั้งค่าความปลอดภัยข้อมูล:</strong> ผู้รับเหมาต้องดำเนินการตั้งค่าระบบ RAID ใน NVR และต้องเข้าบริการแก้ไข (Service) ตามระยะเวลา SLA อย่างเคร่งครัด</span>
+</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const wrapLabel = (text, limit) => {
+        if (text.length <= limit) return text;
+        const words = text.split(' ');
+        let lines = [];
+        let currentLine = '';
+        words.forEach(word => {
+            if ((currentLine + word).length > limit) {
+                if (currentLine.trim() !== '') lines.push(currentLine.trim());
+                currentLine = word + ' ';
+            } else {
+                currentLine += word + ' ';
+            }
+        });
+        if (currentLine.trim() !== '') lines.push(currentLine.trim());
+        return lines;
+    };
+
+    const tooltipConfig = {
+        tooltip: {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        }
+    };
+
+    const costCtx = document.getElementById('totalCostChart').getContext('2d');
+    const rawCostLabels = ["ผู้เสนอราคาที่ 1 (บ.ทวีรุ่งเรืองกิจ)", "ผู้เสนอราคาที่ 2 (TTT Telecom)", "ผู้เสนอราคาที่ 3 (Nextgen SmartTech)"];
+    const costLabels = rawCostLabels.map(label => wrapLabel(label, 16));
+    
+    new Chart(costCtx, {
+        type: 'bar',
+        data: {
+            labels: costLabels,
+            datasets: [{
+                label: 'ยอดรวมสุทธิ (บาท)',
+                data: [1209610, 1568620, 606191],
+                backgroundColor: ['#94A3B8', '#94A3B8', '#2563EB'],
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                ...tooltipConfig,
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { callback: function(value) { return value.toLocaleString(); } }
+                }
+            }
+        }
+    });
+
+    const cameraCtx = document.getElementById('cameraCountChart').getContext('2d');
+    const rawCameraLabels = ["เป้าหมายตามแบบ", "ผู้เสนอราคาที่ 1 & 2", "ผู้เสนอราคาที่ 3 (Nextgen)"];
+    const cameraLabels = rawCameraLabels.map(label => wrapLabel(label, 16));
+
+    new Chart(cameraCtx, {
+        type: 'bar',
+        data: {
+            labels: cameraLabels,
+            datasets: [{
+                label: 'จำนวนกล้อง (ตัว)',
+                data: [112, 94, 116],
+                backgroundColor: ['#1E293B', '#F43F5E', '#14B8A6'],
+                borderRadius: 6
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                ...tooltipConfig,
+                legend: { display: false }
+            },
+            scales: {
+                x: { beginAtZero: true }
+            }
+        }
+    });
+
+    const laborCtx = document.getElementById('laborCostChart').getContext('2d');
+    const rawLaborLabels = ["ผู้เสนอราคาที่ 1", "ผู้เสนอราคาที่ 2", "ผู้เสนอราคาที่ 3 (Nextgen)"];
+    const laborLabels = rawLaborLabels.map(label => wrapLabel(label, 16));
+
+    new Chart(laborCtx, {
+        type: 'bar',
+        data: {
+            labels: laborLabels,
+            datasets: [{
+                label: 'ค่าแรงเฉลี่ยต่อจุด (บาท)',
+                data: [2000, 2500, 600],
+                backgroundColor: ['#94A3B8', '#94A3B8', '#F97316'],
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                ...tooltipConfig,
+                legend: { display: false }
+            },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>
